@@ -1,6 +1,7 @@
 <script>
   import { page } from "$app/state";
-  import { contactList } from "$lib/api/ContactApi";
+  import { alertConfirm, alertError, alertSuccess } from "$lib/alert";
+  import { contactDelete, contactList } from "$lib/api/ContactApi";
   import { onMount } from "svelte";
 
   const token = localStorage.getItem("token");
@@ -20,6 +21,23 @@
     return data;
   });
   let contacts = $state([]);
+
+  async function handleDeleteContact(id) {
+    if (!      await alertConfirm("Are you sure you want to delete this contact?")) {
+      return;
+    }
+
+    const response = await contactDelete(token, id);
+    const responseBody = await response.json();
+    console.log(responseBody);
+
+    if (response.status === 200) {
+      await alertSuccess("Contact deleted successfully.");
+      await fetchContacts();
+    } else {
+      await alertError(responseBody.errors);
+    }
+  }
 
   async function handlePageChange(newPage) {
     search.page = newPage;
@@ -265,6 +283,7 @@
               <i class="fas fa-edit mr-2"></i> Edit
             </a>
             <button
+              onclick={() => handleDeleteContact(contact.id)}
               class="px-4 py-2 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-md flex items-center"
             >
               <i class="fas fa-trash-alt mr-2"></i> Delete
@@ -281,6 +300,7 @@
       class="flex items-center space-x-3 bg-gray-800 bg-opacity-80 rounded-xl shadow-custom border border-gray-700 p-3 animate-fade-in"
     >
       {#if search.page > 1}
+        <!-- svelte-ignore a11y_invalid_attribute -->
         <a
           href="#"
           onclick={() => handlePageChange(search.page - 1)}
@@ -291,6 +311,7 @@
       {/if}
 
       {#each pages as page (page)}
+        <!-- svelte-ignore a11y_invalid_attribute -->
         <a
           href="#"
           onclick={() => handlePageChange(page)}
@@ -301,6 +322,7 @@
       {/each}
 
       {#if search.page < totalPage}
+        <!-- svelte-ignore a11y_invalid_attribute -->
         <a
           href="#"
           onclick={() => handlePageChange(search.page + 1)}
