@@ -1,5 +1,4 @@
 <script>
-  export const ssr = false;
   import favicon from "$lib/assets/favicon.svg";
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
