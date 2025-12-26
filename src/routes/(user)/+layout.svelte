@@ -1,9 +1,25 @@
 <script>
+  import { onMount } from "svelte";
+  import { goto } from "$app/navigation";
+
   const { children } = $props();
+
+  function navigate() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      goto("/dashboard/contacts");
+    } else {
+      goto("/login");
+    }
+  }
+
+  onMount(() => {
+    navigate();
+  });
 </script>
 
 <div
-  class="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen flex flex-col"
+  class="bg-linear-to-br from-gray-900 to-gray-800 min-h-screen flex flex-col"
 >
   <!-- Header with right-aligned menu -->
   <header class="bg-gradient shadow-lg">
@@ -41,7 +57,7 @@
   </header>
 
   <!-- Main content -->
-  <main class="container mx-auto px-4 py-8 flex-grow">
+  <main class="container mx-auto px-4 py-8 grow">
     {@render children()}
     <!-- Footer -->
     <div class="mt-10 mb-6 text-center text-gray-400 text-sm animate-fade-in">

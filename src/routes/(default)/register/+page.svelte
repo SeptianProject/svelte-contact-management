@@ -60,6 +60,7 @@
           type="text"
           id="username"
           name="username"
+          autocomplete="username"
           class="w-full pl-10 pr-3 py-3 bg-gray-700 bg-opacity-50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
           placeholder="Choose a username"
           required
@@ -104,6 +105,7 @@
           type="password"
           id="password"
           name="password"
+          autocomplete="new-password"
           class="w-full pl-10 pr-3 py-3 bg-gray-700 bg-opacity-50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
           placeholder="Create a password"
           required
@@ -128,6 +130,7 @@
           type="password"
           id="confirm_password"
           name="confirm_password"
+          autocomplete="new-password"
           class="w-full pl-10 pr-3 py-3 bg-gray-700 bg-opacity-50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
           placeholder="Confirm your password"
           required
